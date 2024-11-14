@@ -14,7 +14,7 @@ class Slidingtext extends StatelessWidget {
       builder: (context,_) {
         return SlideTransition(
           position: slaidingAnimatin,
-          child: Text('Ready to Bookmark',textAlign: TextAlign.center,style:  TextStyle(fontSize: 12),));
+          child: const Text('Ready to Bookmark',textAlign: TextAlign.center,style:  TextStyle(fontSize: 12),));
       }
     );
   }
