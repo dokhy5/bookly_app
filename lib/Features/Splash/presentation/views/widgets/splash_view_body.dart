@@ -1,9 +1,8 @@
-import 'package:bookly_app/Features/Home/presentation/views/home_view.dart';
 import 'package:bookly_app/Features/Splash/presentation/views/widgets/sliding_text.dart';
+import 'package:bookly_app/core/utils/app_router.dart';
 import 'package:bookly_app/core/utils/assets.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/get_navigation.dart';
+import 'package:go_router/go_router.dart';
 
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({super.key});
@@ -12,14 +11,15 @@ class SplashViewBody extends StatefulWidget {
   State<SplashViewBody> createState() => _SplashViewBodyState();
 }
 
-class _SplashViewBodyState extends State<SplashViewBody>with SingleTickerProviderStateMixin{
+class _SplashViewBodyState extends State<SplashViewBody>
+    with SingleTickerProviderStateMixin {
   late AnimationController animationController;
   late Animation<Offset> slaidingAnimatin;
   @override
   void initState() {
     super.initState();
-    initslidinganimation(); 
-    navigateToHome(); 
+    initslidinganimation();
+    navigateToHome();
   }
 
   @override
@@ -27,28 +27,37 @@ class _SplashViewBodyState extends State<SplashViewBody>with SingleTickerProvide
     super.dispose();
     animationController.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
-    return  Column(
+    return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        
-       Image.asset(AssetsData.logo,),
-       const SizedBox(height: 10,),
+        Image.asset(
+          AssetsData.logo,
+        ),
+        const SizedBox(
+          height: 10,
+        ),
         Slidingtext(slaidingAnimatin: slaidingAnimatin),
       ],
     );
   }
+
   void initslidinganimation() {
-     animationController =AnimationController(vsync: this,duration: const Duration(seconds: 2));
-    slaidingAnimatin = Tween<Offset>(begin:  const Offset(0.0, 20), end:  Offset.zero).animate(animationController);
+    animationController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 2));
+    slaidingAnimatin =
+        Tween<Offset>(begin: const Offset(0.0, 20), end: Offset.zero)
+            .animate(animationController);
     animationController.forward();
-      
   }
+
   void navigateToHome() {
     Future.delayed(const Duration(seconds: 3), () {
-      Get.to(()=>const HomeView());
+      // ignore: use_build_context_synchronously
+      GoRouter.of(context).push(AppRouter.kHomeView);
     });
   }
 }
