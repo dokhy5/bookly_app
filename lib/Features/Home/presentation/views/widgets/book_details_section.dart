@@ -16,7 +16,7 @@ class BookDetailsSection extends StatelessWidget {
       children: [
         Padding(
           padding: EdgeInsets.symmetric(horizontal: width * 0.20),
-          child: const CustomBookImage(),
+          child: const CustomBookImage(imageUrl: 'https://pngimg.com/uploads/mario/mario_PNG125.png',),
         ),
         SizedBox(
           height: 40,
