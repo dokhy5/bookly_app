@@ -4,7 +4,6 @@ import 'package:bookly_app/Features/Home/presentation/manger/newset%20bookscubit
 import 'package:bookly_app/constants.dart';
 import 'package:bookly_app/core/utils/api_service.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
-import 'package:bookly_app/core/utils/service_locator.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,8 +26,8 @@ class Bookly extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => NewsetBooksCubit(
-            getIt.get<HomeRepoImpl>(),
-          ),
+            HomeRepoImpl(ApiService(Dio())),
+          )..fetchNewsetBooks(),
         ),
       ],
       child: MaterialApp.router(

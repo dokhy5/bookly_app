@@ -1,4 +1,4 @@
-import 'package:bookly_app/Features/Home/presentation/views/widgets/best_seller_list_view_item.dart';
+import 'package:bookly_app/Features/Home/presentation/views/widgets/newset_books_list_view_item.dart';
 import 'package:bookly_app/Features/Home/presentation/views/widgets/custom_book_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
@@ -43,7 +43,7 @@ class ShimerNewsetBooksListView extends StatelessWidget {
         itemBuilder: (context, index) {
           return Padding(
             padding: EdgeInsets.symmetric(vertical: 10.0),
-            child: BestSellerListViewItem(),);
+            child: Text('data'));
           }
           ),
           );
