@@ -1,19 +1,41 @@
 import 'package:bloc/bloc.dart';
-import 'package:bookly_app/Features/Home/data/models/book_model/book_model.dart';
-import 'package:bookly_app/Features/Home/data/repos/home_repo.dart';
+import 'package:task1/detales_page/data/models/ProductModel.dart';
+import 'package:task1/detales_page/data/repos/ProductRepo.dart';
 import 'package:equatable/equatable.dart';
 
-part 'featured_books_state.dart';
+part 'product_state.dart';
 
-class FeaturedBooksCubit extends Cubit<FeaturedBooksState> {
-  FeaturedBooksCubit(this.homeRepo) : super(FeaturedBooksInitial());
-  final HomeRepo homeRepo;
-  Future<void> fetchFeaturedBooks() async {
-    emit(FeaturedBooksLoading());
-    var result = await homeRepo.fetchFeaturedBooks();
+class ProductCubit extends Cubit<ProductState> {
+  final ProductRepo repo;
+  ProductCubit(this.repo) : super(ProductInitial());
+
+  /// جلب كل المنتجات
+  Future<void> fetchAllProducts() async {
+    emit(ProductLoading());
+    final result = await repo.fetchAllProducts();
     result.fold(
-      (failure) { emit(FeaturedBooksFailure(failure.errMessage)); },
-      (books) {emit(FeaturedBooksSuccess(books));},
+      (failure) => emit(ProductFailure(failure.errMessage)),
+      (products) => emit(ProductSuccess(products)),
+    );
+  }
+
+  /// جلب تفاصيل منتج معين
+  Future<void> fetchProductDetails(int id) async {
+    emit(ProductLoading());
+    final result = await repo.fetchProductDetails(id: id);
+    result.fold(
+      (failure) => emit(ProductFailure(failure.errMessage)),
+      (product) => emit(ProductDetailsSuccess(product)),
+    );
+  }
+
+  /// جلب المنتجات حسب الفئة
+  Future<void> fetchProductsByCategory(String category) async {
+    emit(ProductLoading());
+    final result = await repo.fetchProductsByCategory(category: category);
+    result.fold(
+      (failure) => emit(ProductFailure(failure.errMessage)),
+      (products) => emit(ProductSuccess(products)),
     );
   }
 }
